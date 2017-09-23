@@ -1,0 +1,18 @@
+{
+  "HIC_DIR": "inter_chromosome_250kb_imr90",
+  "HIC_FILT_DIR": "inter_chromosome_250kb_imr90/filt",
+  "HIC_OUT_DIR": "inter_chromosome_250kb_imr90/las_regions",
+  "HIC_NEW_DIR" : "inter_chromosome_250kb_imr90/las_regions/avg_7.941_iters_100",
+  "INTRACHROM_DIR" : "intrachrom",
+  "CHIPSEQ_DIR" : "peaks",
+  "CHIPSEQ_OUT_DIR" : "peaks/out",
+  "GENOME_DIR" : "genome_data",
+  "GRAPH_NEW_DIR" : "graph/avg_7.941_iters_100_spearmanr_norm",
+  "ENRICHMENT_DIR" : "cluster_feature_enrichment/avg_7.941_iters_100_spearmanr_norm",
+  "NUM_PROC": 1,
+  "HIC_RESOLN": 250000,
+  "chrs" : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+  "pvalue_threshold" : 0.999999999999999,
+  "las_threshold" : 7.941,
+  "filename" : "weighted_correlation_cluster_members.2017-01-17-21:16:25.317181.pickle"
+}

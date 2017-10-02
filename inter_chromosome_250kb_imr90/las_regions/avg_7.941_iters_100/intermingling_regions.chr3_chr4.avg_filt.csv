@@ -1,0 +1,2 @@
+,start col,start row,stop col,score,avg,stop row,column size,row size,sqrt(k*l)*avg
+0,180250000.0,189250000,190000000.0,79.3024883631,0.89488376776,194000000,40.0,20.0,25.3111352223

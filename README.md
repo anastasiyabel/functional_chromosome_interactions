@@ -8,13 +8,13 @@ This pipeline identifies clusters of genomic regions that are both spatially col
 * cluster network to obtain spatially colocalized and coregulated domains
 
 
-In order to identify interacting domains, [filter](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/code/filter_hic_contacts.py) interchromosomal Hi-C matrices (250kb resolution) and run [large average submatirx (LAS) finding algorithm](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/code/large_average_submatrix_hic_avgcutoff_iter.py). These will be the nodes of the network.
+In order to identify interacting domains, [filter](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/code/filter_hic_contacts.py) interchromosomal [Hi-C matrices](https://github.com/anastasiyabel/functional_chromosome_interactions/tree/master/inter_chromosome_250kb_imr90) (250kb resolution) and run [large average submatirx (LAS) finding algorithm](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/code/large_average_submatrix_hic_avgcutoff_iter.py). These will be the nodes of the network.
 ```python
 python filter_hic_contacts.py ../run_params.json
 python large_average_submatrix_hic_avgcutoff_iter.py ../run_params.json
 ```
 
-To obtain genomic features, count the number of peaks for each feature (at 250kb resolution).
+To obtain genomic features, count the number of peaks for each feature (at 250kb resolution). The files for each feature must be provided in the [BED format](https://genome.ucsc.edu/FAQ/FAQformat.html) and specified [here](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/peaks/feature_filenames.txt).
 
 ```python
 python get_feature_matrix_perchr.py ../run_params.json
@@ -33,7 +33,7 @@ Perform analysis on the clusters of the network, for example, find fold enrichme
 ```python
 python feature_fold_enrichment.py ../run_params.json
 ```
-The directories for input/output, resolution of Hi-C data, and specification of threshold for LAS algorithm is located in the configuration file [run_params.json](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/run_params.json).
+The directories for input/output, resolution of Hi-C data, and specification of threshold for LAS algorithm are located in the configuration file [run_params.json](https://github.com/anastasiyabel/functional_chromosome_interactions/blob/master/run_params.json).
 
 Additional programs are required to run code in this repository:
 * bedtools

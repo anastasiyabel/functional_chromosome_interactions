@@ -12,7 +12,6 @@ from scipy.special import erfcx
 from scipy.stats import norm
 import scipy.stats
 import seaborn
-import argparse
 import csv
 import pandas as pd
 import pickle
@@ -24,6 +23,11 @@ import os.path
 import os
 from joblib import Parallel, delayed
 from common import parse_config, get_chrom_size
+
+""" This script runs Large Average Submatrix algorithm on Hi-C contact matrices. 
+Output is contiguous submatrices with a large average for each chromosome pair.
+Adjust the threshold for this algorithm in the configuration file run_params.json if necessary."""
+
 
 def simulate_data():
 	data = np.random.randn(20, 40)

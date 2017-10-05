@@ -1,5 +1,4 @@
 import sys
-import argparse
 import numpy as np 
 import matplotlib as mpl
 mpl.use('Agg')
@@ -10,6 +9,9 @@ import pandas as pd
 import pybedtools
 from joblib import Parallel, delayed
 from common import parse_config, get_chrom_size
+
+""" This scipt counts the number of peaks per bin of Hi-C (250kb in the paper) for each genomic feature 
+and outputs a matrix of feature x region for each chromosome separately."""
 
 
 def count_peaks(bed, bed_chrom):

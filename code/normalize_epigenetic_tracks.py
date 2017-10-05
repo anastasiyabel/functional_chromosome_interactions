@@ -9,6 +9,8 @@ import pandas as pd
 import pickle
 from common import parse_config
 
+"""This script normalizes the feature matrix of counts for each chromosome by the mean and standard deviation across the whole genome."""
+
 def get_filtered_chipseq(chr, blacklist):
     df_chipseq = pd.read_csv(config["CHIPSEQ_OUT_DIR"] + 'features_matrix_chr' + str(chr) + '.csv', index_col = 0)
     # get all blacklisted loccations

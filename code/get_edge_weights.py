@@ -5,7 +5,6 @@ import itertools
 import pickle 
 import pandas as pd
 from collections import defaultdict
-import argparse
 from scipy.stats.stats import pearsonr
 from scipy.stats.stats import spearmanr
 import os
@@ -14,7 +13,8 @@ from common import parse_config, get_chrom_size
 # make the fonts pretty
 plt.rc('font', family='serif')
 
-
+""" This script outputs list of edges with their corresponding weights. The weights are computed using Spearman's correlation. 
+Intrachromosomal edges are placed within TADs (Arrrowhead algorithm, Rao 2014)"""
 
 def bin_intermingling_regions_hic_resoln(df_intermingling, chr1, chr2):
     # break up large intermingling regions into 250kb bins (or resolution of HiC data)
@@ -52,7 +52,6 @@ def get_edge_weights_intermingling(method):
             if (len(df_intermingling) > 0):
 
                 df_intermingling_binned = bin_intermingling_regions_hic_resoln(df_intermingling, chr1, chr2)
-
                 # get correlation values for each intermingling pair
                 df_intermingling_binned_corr = get_correlation(df_intermingling_binned, chr1, chr2)
 
@@ -68,6 +67,10 @@ def get_edge_weights_intermingling(method):
 
     # concatenate inter- and intra-chromosomal regions
     df_edges = pd.concat([df_inter, df_intra])
+    # make sure chromosome name are ints or strings
+    df_edges.loc[:,'chr1'] = df_edges.loc[:,'chr1'].apply(lambda x: int(x) if ((x != 'X') | (x != 'Y')) else + str(x))
+    df_edges.loc[:,'chr2'] = df_edges.loc[:,'chr2'].apply(lambda x: int(x) if ((x != 'X') | (x != 'Y')) else + str(x))
+    df_edges.loc[:,['start row', 'start col', 'stop row', 'stop col']] = df_edges.loc[:,['start row', 'start col', 'stop row', 'stop col']].astype('int')
     return df_edges
     
 
@@ -129,8 +132,8 @@ def add_intrachromosomal_edges(df_inter, method = 'tad'):
             interactions_chr_list = []
             for domain in domains_chr.iterrows():
                 domain = domain[1]
-                start_pos = (domain['x1']/config["HIC_RESOLN"])*config["HIC_RESOLN"]
-                stop_pos = (domain['x2']/config["HIC_RESOLN"])*config["HIC_RESOLN"]
+                start_pos = int((domain['x1']/config["HIC_RESOLN"])*config["HIC_RESOLN"])
+                stop_pos = int((domain['x2']/config["HIC_RESOLN"])*config["HIC_RESOLN"])
                 pos = range(start_pos, stop_pos+config["HIC_RESOLN"], config["HIC_RESOLN"])
                 pos_list = [p for p in pos if p in df_inter_pos]
 
@@ -140,7 +143,7 @@ def add_intrachromosomal_edges(df_inter, method = 'tad'):
                     interactions_chr_list.append(interactions)
 
             interactions_chr_list = np.asarray(list(itertools.chain.from_iterable(interactions_chr_list)))
-            df_intra_chr = pd.DataFrame(interactions_chr_list, columns=['start row', 'start col'])
+            df_intra_chr = pd.DataFrame(interactions_chr_list, columns=['start row', 'start col'], dtype= 'int')
             df_intra_chr['chr1'] = [chr]*len(interactions_chr_list)
             df_intra_chr['chr2'] = [chr]*len(interactions_chr_list)
             df_intra_chr['stop row'] = df_intra_chr['start row'] + config["HIC_RESOLN"]
@@ -150,7 +153,6 @@ def add_intrachromosomal_edges(df_inter, method = 'tad'):
 
             df_intra = pd.concat([df_intra, df_intra_corr])
 
-    
     if (method == 'las'):
         print 'LAS blocks intrachromosomal edges...'
         chr_pairs = list(itertools.combinations(range(1, 23), 2))
@@ -205,10 +207,7 @@ def main():
     method_intra = 'tad'
     df_edges = get_edge_weights_intermingling(method_intra)
     df_edges = df_edges[['chr1', 'start row', 'stop row', 'chr2', 'start col', 'stop col', 'correlation']]
-    print df_edges.head()
-    data_weighted = df_edges.as_matrix()
-    np.savetxt(config["GRAPH_NEW_DIR"] + 'data.weighted.txt', data_weighted, fmt = ['%s', '%d', '%d', '%s', '%d',  '%d',  '%f'])
-    print data_weighted.shape
+    df_edges.to_csv(config["GRAPH_NEW_DIR"] + 'data.weighted.txt', sep = ' ', header = None, index=None)
 
 if __name__ == "__main__":
     main()

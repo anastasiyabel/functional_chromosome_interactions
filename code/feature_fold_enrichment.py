@@ -10,7 +10,6 @@ import pickle
 import itertools
 import os.path
 import pybedtools
-import argparse
 import multiprocessing as mp
 from joblib import Parallel, delayed
 from common import parse_config, get_chrom_size, get_clusters
@@ -21,8 +20,8 @@ plt.rc('font', family='serif')
 
 def get_peakfilename_feature(feature):
     mapping_file = config["CHIPSEQ_DIR"] + 'feature_filenames.txt'
-    mapping = np.loadtxt(mapping_file, dtype = 'str', delimiter = ' ')
-    mapping = pd.read_csv(mapping_file, sep = ' ')
+    #mapping = np.loadtxt(mapping_file, dtype = 'str', delimiter = ' ')
+    mapping = pd.read_csv(mapping_file, sep = '\t')
     # using feature name return the appropriate file with all the data peaks
     feature_file = mapping[mapping['feature'] == feature]['filename'].values[0]
     feature_file = config["CHIPSEQ_DIR"] + feature_file
@@ -37,7 +36,7 @@ def get_num_bases_genome():
 
 def transform_clust2bed(clust):
     clust_df = pd.DataFrame(clust, columns = ['chr', 'start'], dtype = 'S12')
-    clust_df['chr'] = clust_df['chr'].apply(lambda x: 'chr' + str(x))
+    clust_df['chr'] = clust_df['chr'].apply(lambda x: 'chr' + str(int(float(x))) if ((x != 'X') | (x != 'Y')) else 'chr' + x)
     clust_df['stop'] = clust_df['start'].astype('int') + config["HIC_RESOLN"]
     clust_bed = pybedtools.BedTool.from_dataframe(clust_df)
     return clust_bed

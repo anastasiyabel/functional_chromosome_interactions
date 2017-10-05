@@ -8,12 +8,18 @@ from collections import defaultdict
 import os
 import subprocess
 import scipy
-import argparse
 import datetime
 import community 
 from networkx.readwrite.gml import literal_stringizer
 import sys
 from common import parse_config, get_chrom_size
+
+""" This script constructs a weighted network of chromosomal interactions 
+and performs weighted correlation clustering to find individual clusters. 
+Note this script should be run multiple number of times since weighted correlation clustering is a nonconvex problem.
+Pick the results of the run with lowest objective function. 
+If weighted correlation clustering was not installed in your home directory change the location of this software in script"""
+
 
 # make the fonts pretty
 plt.rc('font', family='serif')
@@ -86,7 +92,7 @@ def weighted_correlation_clustering(G):
 
     # write clusters to file, input file is the pickled clusters
     output_file = config["GRAPH_NEW_DIR"] + 'weighted_correlation_cluster_members.' + TIMESTAMP + '.txt'
-    write_clusters(clusters, tad_size, output_file)    
+    write_clusters(clusters, config["HIC_RESOLN"], output_file)    
 
 def write_clusters_from_labels(labels, G, filename):
 

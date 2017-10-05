@@ -46,3 +46,4 @@ RCOR1	wgEncodeSydhTfbsImr90Corestsc30189IggrabPk.narrowPeak	ENCODE	GSE31477
 RELA	RELA-LICR_peaks.narrowPeak	Jin et al.	GSE43070
 RFX5	wgEncodeSydhTfbsImr90Rfx5IggrabPk.narrowPeak	ENCODE	GSE31477
 YAP1	YAP1-Stein_peaks.narrowPeak	Stein et al.	GSE61852
+Exons	LID47262-LID47263_ExonGencV10.bed	ENCODE	GSE24565

@@ -171,9 +171,9 @@ def row_col_sums(dic_repeats_tofilter):
         print np.count_nonzero(df.sum(axis=0))
         print np.count_nonzero(df.sum(axis=1))
 
-        # FILTER OUT CENTROMERIC REGIONS (1Mb)
-        df = filter_centromere(df, chr1, 'row', filter_size = 1000000)
-        df = filter_centromere(df, chr2, 'col', filter_size = 1000000)
+        # FILTER OUT CENTROMERIC REGIONS (2Mb)
+        df = filter_centromere(df, chr1, 'row', filter_size = 2000000)
+        df = filter_centromere(df, chr2, 'col', filter_size = 2000000)
         print 'After centromere filtering'
         print np.count_nonzero(df.sum(axis=0))
         print np.count_nonzero(df.sum(axis=1))

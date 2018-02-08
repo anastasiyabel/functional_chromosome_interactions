@@ -1,6 +1,6 @@
 # Network analysis for identification of functional interchromosomal interactions
 
-This pipeline identifies clusters of genomic regions that are both spatially colocalized in 3D and coregulated. We present an intergrative approach that leverages 1D functional genomic features (e.g. epigenetic marks) with 3D interactions from high-throughput chromosome conformation capture (Hi-C) data to identify functional interchromosomal interactions. In the paper "Network analysis identifies chromosome intermingling regions as regulatory hotspots for transcription" (to appear), we:
+This pipeline identifies clusters of genomic regions that are both spatially colocalized in 3D and coregulated. We present an intergrative approach that leverages 1D functional genomic features (e.g. epigenetic marks) with 3D interactions from high-throughput chromosome conformation capture (Hi-C) data to identify functional interchromosomal interactions. In the paper ["Network analysis identifies chromosome intermingling regions as regulatory hotspots for transcription"](http://www.pnas.org/content/114/52/13714.long) (PNAS, 2017) by Belyaeva, Venkatachalapathy, Nagarajan, Shivashankar, and Uhler we:
 
 * identify highly interacting domains in interchromosomal Hi-C maps by determining large average submatrices
 * superimpose regulatory marks on the interacting domains

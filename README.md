@@ -50,4 +50,4 @@ Additional programs are required to run code in this repository:
 * networkx
 * seaborn
 * subprocess
-* installation of [weighted correlation clustering](http://www.ling.ohio-state.edu/~elsner.14/resources/correlation-readme.html)
+* installation of [weighted correlation clustering](https://www.asc.ohio-state.edu/elsner.14/#software)
